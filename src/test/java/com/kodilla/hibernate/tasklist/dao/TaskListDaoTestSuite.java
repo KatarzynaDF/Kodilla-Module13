@@ -5,6 +5,7 @@ import com.kodilla.hibernate.tasklist.TaskList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -13,15 +14,20 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@SpringBootApplication
+
+
 public class TaskListDaoTestSuite {
 
+    @Autowired
     private TaskListDao taskListDao;
+
+    private static final String DESCRIPTION = "something";
+    private static final String LISTNAME = "something";
 
     @Test
     public void testFindByListName() {
         //Given
-        TaskList taskList = new TaskList(3,"shopping", "description");
+        TaskList taskList = new TaskList(3,LISTNAME, DESCRIPTION);
         taskListDao.save(taskList);
         String listName = taskList.getListName();
 
