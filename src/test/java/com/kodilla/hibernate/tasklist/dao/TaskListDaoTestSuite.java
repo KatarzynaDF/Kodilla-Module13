@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -22,12 +21,12 @@ public class TaskListDaoTestSuite {
     private TaskListDao taskListDao;
 
     private static final String DESCRIPTION = "something";
-    private static final String LISTNAME = "something";
+    private static final String NAME = "something";
 
     @Test
     public void testFindByListName() {
         //Given
-        TaskList taskList = new TaskList(3,LISTNAME, DESCRIPTION);
+        TaskList taskList = new TaskList(3,NAME, DESCRIPTION);
         taskListDao.save(taskList);
         String listName = taskList.getListName();
 

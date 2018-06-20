@@ -27,7 +27,7 @@ public class TaskList<T> {
         return id;
     }
 
-    @Column(name="LIST NAME")
+    @Column(name="NAME")
     public String getListName() {
         return listName;
     }
