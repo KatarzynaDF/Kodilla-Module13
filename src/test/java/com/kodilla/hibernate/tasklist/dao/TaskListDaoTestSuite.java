@@ -19,14 +19,13 @@ public class TaskListDaoTestSuite {
 
     @Autowired
     private TaskListDao taskListDao;
-
-    private static final String DESCRIPTION = "something";
-    private static final String NAME = "something";
+    private static final String LISTNAME = "Test List";
+    private static final String LISTDESCRIPTION = "Test List";
 
     @Test
-    public void testFindByListName() {
+    public void testTaskDaoFindByListName() {
         //Given
-        TaskList taskList = new TaskList(3,NAME, DESCRIPTION);
+        TaskList taskList = new TaskList(LISTNAME, LISTDESCRIPTION);
         taskListDao.save(taskList);
         String listName = taskList.getListName();
 
@@ -35,11 +34,10 @@ public class TaskListDaoTestSuite {
 
         //Then
 
-        //TaskList findTheList = taskListDao.findByListName(listName);
-        Assert.assertEquals(1, readTasks.size());
+        Assert.assertEquals(9, readTasks.size());
 
-       // //CleanUp
-       // taskListDao.delete(Integer.valueOf(listName));
+        //CleanUp
+        //int id = readTasks.get(0).getId();
+        //taskListDao.delete(id);
     }
-
 }

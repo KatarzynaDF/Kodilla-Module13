@@ -1,40 +1,48 @@
 package com.kodilla.hibernate.tasklist;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
-@Table(name="TaskList")
+@Table(name = "TaskList")
 public class TaskList<T> {
     private int id;
     private String listName;
     private String description;
+    private Date created;
 
-    public TaskList(){
+    public TaskList() {
 
     }
 
-    public TaskList(int id, String listName, String description) {
-        this.id = id;
+    public TaskList(String listName, String description) {
         this.listName = listName;
         this.description = description;
+        this.created = new Date();
     }
+
     @Id
     @GeneratedValue
-    @Column(name="ID", unique = true)
+    @NotNull
+    @Column(name = "ID", unique = true)
     public int getId() {
         return id;
     }
 
-    @Column(name="NAME")
+    @Column(name = "NAME")
     public String getListName() {
         return listName;
     }
 
-    @Column(name="DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     public String getDescription() {
         return description;
+    }
+
+    @Column(name = "CREATED")
+    public Date getCreated() {
+        return created;
     }
 
     public void setId(int id) {
@@ -47,5 +55,9 @@ public class TaskList<T> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }
