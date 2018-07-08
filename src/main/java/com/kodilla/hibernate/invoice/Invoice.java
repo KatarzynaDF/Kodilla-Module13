@@ -11,7 +11,8 @@ public class Invoice {
     private int id;
     private String name;
     private List<Item> items;
-    private Product product;
+    private Item item;
+
 
     public Invoice(){}
 
@@ -43,9 +44,6 @@ public class Invoice {
         return items;
     }
 
-    public Product getProduct() {
-        return product;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -59,7 +57,4 @@ public class Invoice {
         this.items = items;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

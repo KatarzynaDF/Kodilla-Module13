@@ -15,6 +15,7 @@ public class Item {
     private Invoice invoice;
 
 
+
     public Item() {
     }
 
@@ -34,9 +35,16 @@ public class Item {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Product_ID")
+    @JoinColumn(name = "It_ID")
     public Product getProduct() {
         return product;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "INV")
+
+    public Invoice getInvoice() {
+        return invoice;
     }
 
     public BigDecimal getPrice() {
@@ -51,11 +59,6 @@ public class Item {
         return value;
     }
 
-  @ManyToOne
-  @JoinColumn(name = "Invoice_ID")
-    public Invoice getInvoice() {
-        return invoice;
-    }
 
     public void setId(int id) {
         this.id = id;

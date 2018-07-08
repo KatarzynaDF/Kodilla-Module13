@@ -35,6 +35,7 @@ public class InvoiceDaoTestSuite {
         Product product1 = new Product(1, "product1");
         Product product2 = new Product(2, "product2");
         Invoice invoice = new Invoice(2334, "Invoice1");
+
         invoice.getItems().add(item1);
         invoice.getItems().add(item2);
         item1.setProduct(product1);
