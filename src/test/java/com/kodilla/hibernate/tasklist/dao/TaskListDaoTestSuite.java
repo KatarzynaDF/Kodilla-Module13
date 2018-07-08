@@ -33,7 +33,6 @@ public class TaskListDaoTestSuite {
         List<TaskList> readTasks = taskListDao.findByListName(listName);
 
         //Then
-
         Assert.assertEquals(1, readTasks.size());
 
         //CleanUp

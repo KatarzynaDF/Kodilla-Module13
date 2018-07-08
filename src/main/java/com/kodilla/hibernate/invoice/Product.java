@@ -1,23 +1,24 @@
 package com.kodilla.hibernate.invoice;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name="ProductList")
+@Table(name = "ProductList")
 public class Product {
     private int id;
     private String name;
     private List<Item> items;
 
 
-    public Product(){}
+    public Product() {
+    }
 
     public Product(int id, String name) {
         this.id = id;
         this.name = name;
     }
+
 
     @Id
     @GeneratedValue
@@ -31,6 +32,7 @@ public class Product {
     public String getName() {
         return name;
     }
+
     @OneToMany(
             targetEntity = Item.class,
             mappedBy = "product",
@@ -40,7 +42,6 @@ public class Product {
     public List<Item> getItems() {
         return items;
     }
-
 
     public void setId(int id) {
         this.id = id;
