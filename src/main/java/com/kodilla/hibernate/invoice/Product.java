@@ -2,6 +2,7 @@ package com.kodilla.hibernate.invoice;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,7 +10,7 @@ import java.util.List;
 public class Product {
     private int id;
     private String name;
-    private List<Item> items;
+    private List<Item> products = new ArrayList<>();
 
     public Product() {
     }
@@ -33,15 +34,15 @@ public class Product {
         return name;
     }
 
-
     @OneToMany(
             targetEntity = Item.class,
-           mappedBy = "product",
-           cascade = CascadeType.ALL,
-           fetch = FetchType.LAZY
-   )
-    public List<Item> getItems() {
-        return items;
+            mappedBy = "product",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+
+    )
+    public List<Item> getProducts() {
+        return products;
     }
 
     public void setId(int id) {
@@ -52,6 +53,7 @@ public class Product {
         this.name = name;
     }
 
-
-
+    public void setProducts(List<Item> products) {
+        this.products = products;
+    }
 }
