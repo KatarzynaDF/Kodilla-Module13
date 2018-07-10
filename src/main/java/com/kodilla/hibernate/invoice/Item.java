@@ -17,8 +17,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(int id, BigDecimal price, int quantity, BigDecimal value) {
-        this.id = id;
+    public Item(BigDecimal price, int quantity, BigDecimal value) {
         this.price = price;
         this.quantity = quantity;
         this.value = value;
@@ -32,13 +31,13 @@ public class Item {
         return id;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID1")
     public Product getProduct() {
         return product;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "INV")
     public Invoice getInvoice() {
         return invoice;
@@ -77,7 +76,7 @@ public class Item {
         this.value = value;
     }
 
-   public void setInvoice(Invoice invoice) {
-       this.invoice = invoice;
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 }

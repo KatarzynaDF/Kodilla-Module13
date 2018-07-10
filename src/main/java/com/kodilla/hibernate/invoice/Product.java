@@ -1,4 +1,5 @@
 package com.kodilla.hibernate.invoice;
+
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotNull;
@@ -15,8 +16,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name) {
-        this.id = id;
+    public Product(String name) {
         this.name = name;
     }
 

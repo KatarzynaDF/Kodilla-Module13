@@ -25,26 +25,23 @@ public class InvoiceDaoTestSuite {
 
     @Autowired
     private InvoiceDao invoiceDao;
-    //private ItemDao itemDao;
-   // private ProductDao productDao;
 
     @Test
     public void testInvoiceDaoSave() {
         //Given
 
-        Item item1 = new Item(1, new BigDecimal("133334"), 23, new BigDecimal("94940"));
-        Item item2 = new Item(2, new BigDecimal("1334545"), 63, new BigDecimal("5955"));
-        Product product = new Product(1, "product1");
-        Product product2 = new Product(2, "product2");
+        Item item1 = new Item(new BigDecimal("133334"), 23, new BigDecimal("94940"));
+        Item item2 = new Item(new BigDecimal("1334545"), 63, new BigDecimal("5955"));
+        Product product = new Product("product1");
+        Product product2 = new Product("product2");
 
         item1.setProduct(product);
         item2.setProduct(product2);
-        Invoice invoice = new Invoice(2334, "Invoice1");
+        Invoice invoice = new Invoice("Invoice1");
 
         invoice.getItems().add(item1);
         invoice.getItems().add(item2);
-        item1.setInvoice(invoice);
-        item2.setInvoice(invoice);
+
 
         //When
 

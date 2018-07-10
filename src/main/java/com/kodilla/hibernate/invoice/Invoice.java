@@ -17,8 +17,7 @@ public class Invoice {
 
     public Invoice(){}
 
-    public Invoice(int id, String name) {
-        this.id = id;
+    public Invoice(String name) {
         this.name = name;
 
     }
