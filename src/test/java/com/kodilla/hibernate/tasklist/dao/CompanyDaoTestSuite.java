@@ -2,14 +2,19 @@ package com.kodilla.hibernate.tasklist.dao;
 
 
 import com.kodilla.hibernate.dao.CompanyDao;
+import com.kodilla.hibernate.dao.EmployeeDao;
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,8 +22,16 @@ public class CompanyDaoTestSuite {
     @Autowired
     CompanyDao companyDao;
 
+    @Autowired
+    EmployeeDao employeeDao;
+    private static String LASTNAME = "Smith";
+
+
+
     @Test
-    public void testSaveManyToMany(){
+    public void testSaveManyToMany() {
+
+
         //Given
         Employee johnSmith = new Employee("John", "Smith");
         Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
@@ -54,12 +67,82 @@ public class CompanyDaoTestSuite {
         Assert.assertNotEquals(0, greyMatterId);
 
         //CleanUp
-        //try {
-        //    companyDao.delete(softwareMachineId);
-        //    companyDao.delete(dataMaestersId);
-        //    companyDao.delete(greyMatterId);
-        //} catch (Exception e) {
-        //    //do nothing
-        //}
+        try {
+            companyDao.delete(softwareMachineId);
+            companyDao.delete(dataMaestersId);
+            companyDao.delete(greyMatterId);
+        } catch (Exception e) {
+            // do nothing;
+        }
+    }
+
+    @Test
+    public void testQueries() {
+
+        //Given
+
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        Company greyMatter = new Company("Grey Matter");
+
+        greyMatter.getEmployees().add(johnSmith);
+        greyMatter.getEmployees().add(lindaKovalsky);
+
+        companyDao.save(greyMatter);
+        int greyMatterId = greyMatter.getId();
+
+
+        //When
+        List<Employee> smithName = employeeDao.lookForLastName(LASTNAME);
+
+        //Then
+
+        Assert.assertEquals(1, smithName.size());
+
+        //CleanUp
+
+        try {
+            companyDao.delete(greyMatter);
+
+        } catch (Exception e) {
+            // do nothing
+        }
+    }
+
+    @Test
+    public void testQueryCompany() {
+
+        //Given
+
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        Company greyMatter = new Company("Grey Matter");
+        Company ibm = new Company("Ibm");
+
+        greyMatter.getEmployees().add(johnSmith);
+        greyMatter.getEmployees().add(lindaKovalsky);
+        ibm.getEmployees().add(johnSmith);
+        ibm.getEmployees().add(lindaKovalsky);
+
+        companyDao.save(greyMatter);
+        int greyMatterId = greyMatter.getId();
+
+        //When
+        List<Company> companiesList = companyDao.lookForCompanyName();
+
+        //Then
+
+        Assert.assertNotEquals(0, greyMatterId);
+
+        //CleanUp
+
+        try {
+            companyDao.delete(companiesList);
+
+        } catch (Exception e) {
+            // do nothing
+        }
     }
 }
