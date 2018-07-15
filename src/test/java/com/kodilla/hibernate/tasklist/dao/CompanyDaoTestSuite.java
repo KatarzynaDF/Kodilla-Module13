@@ -27,7 +27,6 @@ public class CompanyDaoTestSuite {
     private static String LASTNAME = "Smith";
 
 
-
     @Test
     public void testSaveManyToMany() {
 
@@ -119,18 +118,13 @@ public class CompanyDaoTestSuite {
         Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
 
         Company greyMatter = new Company("Grey Matter");
-        Company ibm = new Company("Ibm");
 
         greyMatter.getEmployees().add(johnSmith);
         greyMatter.getEmployees().add(lindaKovalsky);
-        ibm.getEmployees().add(johnSmith);
-        ibm.getEmployees().add(lindaKovalsky);
-
-        companyDao.save(greyMatter);
-        int greyMatterId = greyMatter.getId();
 
         //When
-        List<Company> companiesList = companyDao.lookForCompanyName();
+        companyDao.save(greyMatter);
+        int greyMatterId = greyMatter.getId();
 
         //Then
 
@@ -139,7 +133,7 @@ public class CompanyDaoTestSuite {
         //CleanUp
 
         try {
-            companyDao.delete(companiesList);
+            companyDao.delete(greyMatterId);
 
         } catch (Exception e) {
             // do nothing
