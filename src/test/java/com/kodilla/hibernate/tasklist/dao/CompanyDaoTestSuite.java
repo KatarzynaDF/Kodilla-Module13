@@ -112,6 +112,7 @@ public class CompanyDaoTestSuite {
     @Test
     public void testQueryCompany() {
 
+
         //Given
 
         Employee johnSmith = new Employee("John", "Smith");
