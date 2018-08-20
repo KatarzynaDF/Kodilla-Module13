@@ -6,9 +6,12 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @NamedQuery(
-        name = "Employee.lookForLastName",
-        query = "FROM Employee WHERE lastname LIKE :LASTNAME"
+        name = "Employee.findMatchingName",
+        query = "FROM Employee WHERE lastname LIKE CONCAT('%',:NAME,'%')"
+
 )
 @Entity
 @Table(name = "EMPLOYEES")
@@ -71,4 +74,6 @@ public class Employee {
     public void setCompanies(List<Company> companies) {
         this.companies = companies;
     }
+
+
 }

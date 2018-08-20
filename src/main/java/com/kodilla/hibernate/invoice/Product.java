@@ -1,7 +1,6 @@
 package com.kodilla.hibernate.invoice;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;

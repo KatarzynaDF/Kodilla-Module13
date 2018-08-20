@@ -1,19 +1,20 @@
-package com.kodilla.hibernate.tasklist.dao;
+package com.kodilla.hibernate.tasklist;
 
 
 import com.kodilla.hibernate.dao.CompanyDao;
 import com.kodilla.hibernate.dao.EmployeeDao;
+
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
+import com.kodilla.hibernate.manytomany.facade.LookingFacade;
+import com.kodilla.hibernate.manytomany.facade.LookingProcessException;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +22,9 @@ import java.util.List;
 public class CompanyDaoTestSuite {
     @Autowired
     CompanyDao companyDao;
+
+    @Autowired
+    LookingFacade lookingFacade;
 
     @Autowired
     EmployeeDao employeeDao;
@@ -127,9 +131,9 @@ public class CompanyDaoTestSuite {
         companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
 
+
         //Then
 
-        Assert.assertNotEquals(0, greyMatterId);
 
         //CleanUp
 
@@ -139,5 +143,50 @@ public class CompanyDaoTestSuite {
         } catch (Exception e) {
             // do nothing
         }
+    }
+
+    public void testQueryCompanyFasade() {
+
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        johnSmith.getCompanies().add(softwareMachine);
+        johnSmith.getCompanies().add(greyMatter);
+        stephanieClarckson.getCompanies().add(dataMaesters);
+        lindaKovalsky.getCompanies().add(dataMaesters);
+        lindaKovalsky.getCompanies().add(greyMatter);
+
+        softwareMachine.getEmployees().add(johnSmith);
+        dataMaesters.getEmployees().add(stephanieClarckson);
+        dataMaesters.getEmployees().add(lindaKovalsky);
+        greyMatter.getEmployees().add(johnSmith);
+        greyMatter.getEmployees().add(lindaKovalsky);
+
+        companyDao.save(softwareMachine);
+        companyDao.save(dataMaesters);
+        companyDao.save(greyMatter);
+
+        employeeDao.save(johnSmith);
+        employeeDao.save(stephanieClarckson);
+        employeeDao.save(lindaKovalsky);
+
+        List<Employee> foundCompany = null;
+        try {
+            foundCompany = lookingFacade.searchEmployee("GRE");
+        } catch (LookingProcessException e) {
+            //nothing
+        }
+
+        //Then
+        Assert.assertEquals(1, foundCompany.size());
+
+        //CleanUp
+        employeeDao.deleteAll();
+        companyDao.deleteAll();
     }
 }

@@ -2,7 +2,6 @@ package com.kodilla.hibernate.dao;
 
 import com.kodilla.hibernate.tasklist.TaskList;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.RepositoryDefinition;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;

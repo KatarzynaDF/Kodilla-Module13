@@ -7,9 +7,14 @@ import java.util.List;
 
 @NamedNativeQuery(
         name = "Company.lookForCompanyName",
-        query = "SELECT * FROM COMPANY_NAME" +
+       query = "SELECT * FROM COMPANY_NAME" +
                 "WHERE NAME LIKE PARAMETER",
         resultClass = Company.class
+)
+
+@NamedQuery(
+        name = "Company.findMatchingName",
+        query = "FROM Company WHERE lastname LIKE CONCAT('%',:NAME,'%')"
 )
 @Entity
 @Table(name = "COMPANIES")
@@ -18,7 +23,7 @@ public class Company {
     private String name;
     private List<Employee> employees = new ArrayList<>();
     private List<Company> companies = new ArrayList<>();
-    public static String PARAMETER = "Gre%";
+    public static String PARAMETER = "%gre%";
 
     public Company() {
     }
@@ -57,4 +62,6 @@ public class Company {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
+
+
 }
